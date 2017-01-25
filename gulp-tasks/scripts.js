@@ -34,7 +34,10 @@ module.exports = function (gulp, plugins, task) {
 
   return {
     default: function (callback) {
-      plugins.runSequence(task + ':clean', task + ':build', task + ':bundle', callback);
+      plugins.runSequence(task + ':clean', task + ':build', task + ':bundle:packages', task + ':bundle:code', task + ':bundle:source', callback);
+    },
+    'default:watch': function (callback) {
+      plugins.runSequence(task + ':clean', task + ':build', task + ':bundle:code', task + ':bundle:source', callback);
     },
     release: function (callback) {
       plugins.runSequence(task + ':clean', task + ':release:build', task + ':release:bundle', task + ':libs', task + ':concat', task + ':release:license', callback);
@@ -81,7 +84,7 @@ module.exports = function (gulp, plugins, task) {
         }))
         .pipe(gulp.dest(buildPath));
     },
-    bundle: function (callback) {
+    'bundle:packages': function (callback) {
       require('./../config.js');
       var list = Object.keys(System.packages)
         .map(function (m) { return m
@@ -92,10 +95,13 @@ module.exports = function (gulp, plugins, task) {
         .concat(libsSourcePathDebug)
         .concat(['config.js']);
 
-      return plugins.mergeStream(
-        gulp.src(sourcePath).pipe(gulp.dest(destinationPath)),
-        gulp.src(list).pipe(gulp.dest(destinationBasePath))  
-      );
+      return gulp.src(list).pipe(gulp.dest(destinationBasePath));
+    },
+    'bundle:code': function (callback) {
+      return gulp.src(buildPath.replace('build', '**build') + '/**/*.js').pipe(gulp.dest(destinationBasePath));
+    },
+    'bundle:source': function (callback) {
+      return gulp.src(sourcePath).pipe(gulp.dest(destinationPath));
     },
     'release:bundle': function () {
       var builder = new Builder('', './config.js');
@@ -143,7 +149,7 @@ module.exports = function (gulp, plugins, task) {
         .pipe(plugins.clean({ force: true }));
     },
     watch: function () {
-      return gulp.watch(sourcePath, [task]);
+      return gulp.watch(sourcePath, [task + ':default:watch']);
     }
   };
 };

@@ -21,7 +21,7 @@ import { NavigationActions } from './../store/action/navigation.action';
     BrowserModule,
     FormsModule,
     HttpModule,
-    MaterialModule
+    MaterialModule.forRoot()
   ],
   declarations: [
     AppComponent,
