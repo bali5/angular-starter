@@ -72,43 +72,43 @@ System.config({
       "defaultExtension": "js"
     },
     "@angular/common": {
-      "main": "/bundles/common.umd.js",
+      "main": "index.js",
       "defaultExtension": "js"
     },
     "@angular/compiler": {
-      "main": "/bundles/compiler.umd.js",
+      "main": "index.js",
       "defaultExtension": "js"
     },
     "@angular/core": {
-      "main": "/bundles/core.umd.js",
+      "main": "index.js",
       "defaultExtension": "js"
     },
     "@angular/forms": {
-      "main": "/bundles/forms.umd.js",
+      "main": "index.js",
       "defaultExtension": "js"
     },
     "@angular/http": {
-      "main": "/bundles/http.umd.js",
+      "main": "index.js",
       "defaultExtension": "js"
     },
     "@angular/platform-browser": {
-      "main": "/bundles/platform-browser.umd.js",
+      "main": "index.js",
       "defaultExtension": "js"
     },
     "@angular/platform-browser-dynamic": {
-      "main": "/bundles/platform-browser-dynamic.umd.js",
+      "main": "index.js",
       "defaultExtension": "js"
     },
     "@angular/router": {
-      "main": "/bundles/router.umd.js",
+      "main": "index.js",
       "defaultExtension": "js"
     },
     "@angular/router-deprecated": {
-      "main": "/bundles/router-deprecated.umd.js",
+      "main": "index.js",
       "defaultExtension": "js"
     },
     "@angular/upgrade": {
-      "main": "/bundles/upgrade.umd.js",
+      "main": "index.js",
       "defaultExtension": "js"
     }
   },

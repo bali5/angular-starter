@@ -3,7 +3,7 @@ import { Component, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/
 import { AppContext } from './app.context';
 
 import { Observable } from 'rxjs/Observable';
-import { select } from 'ng2-redux';
+import { select } from '@angular-redux/store';
 
 @Component({
   selector: 'cf-app',

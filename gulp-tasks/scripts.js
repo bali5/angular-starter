@@ -108,8 +108,8 @@ module.exports = function (gulp, plugins, task) {
       return builder.buildStatic('app', buildPath + '/app.js', { minify: true, sourceMaps: false });
     },
     'aot:bundle': function () {
-      var builder = new Builder('', './config.js');
-      return builder.buildStatic('app', buildPath + '/app.js', { minify: true, sourceMaps: false });
+      var builder = new Builder('', './config-aot.js');
+      return builder.buildStatic('app', buildPath + '/app.js', { minify: false, sourceMaps: false });
     },
     'release:license': function () {
       return gulp.src(buildPath + '/app.js')

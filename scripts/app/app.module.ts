@@ -6,6 +6,8 @@ import { FormsModule } from '@angular/forms';
 
 import { MaterialModule, MdIconRegistry, OVERLAY_PROVIDERS, MdSnackBar } from '@angular/material';
 
+import { NgReduxModule } from '@angular-redux/store';
+
 // Components
 import { AppComponent } from './app.component';
 
@@ -13,7 +15,6 @@ import { AppComponent } from './app.component';
 import { AppContext } from './app.context';
 
 // Store
-import { AppRedux } from './../store/app.state';
 import { NavigationActions } from './../store/action/navigation.action';
 
 @NgModule({
@@ -21,7 +22,8 @@ import { NavigationActions } from './../store/action/navigation.action';
     BrowserModule,
     FormsModule,
     HttpModule,
-    MaterialModule.forRoot()
+    MaterialModule.forRoot(),
+    NgReduxModule
   ],
   declarations: [
     AppComponent,
@@ -35,7 +37,6 @@ import { NavigationActions } from './../store/action/navigation.action';
     MdSnackBar,
     AppContext,
     // Store
-    AppRedux,
     NavigationActions
   ]
 })
