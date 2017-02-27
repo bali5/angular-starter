@@ -32,17 +32,17 @@
 }
 
 @import "../node_modules/@angular/material/core/theming/all-theme";
-@include md-core();
+@include mat-core();
 
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue.
-$primary: md-palette($md-grey, 800, 600, 200);
-$accent: md-palette($md-blue, 500, 700, 300);
-$warn: md-palette($md-red, 500, 300, 900); 
+$primary: mat-palette($mat-grey, 800, 600, 200);
+$accent: mat-palette($mat-blue, 500, 700, 300);
+$warn: mat-palette($mat-red, 500, 300, 900); 
 
 // Create the theme object (a Sass map containing all of the palettes).
-$theme: md-dark-theme($primary, $accent, $warn);
+$theme: mat-dark-theme($primary, $accent, $warn);
 
 // Include theme styles for core and each component used in your app.
 @include angular-material-theme($theme);

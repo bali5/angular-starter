@@ -13,7 +13,7 @@ module.exports = function (gulp, plugins, task) {
       plugins.runSequence(task + ':clean', task + ':build', callback);
     },
     'release-aot': function (callback) {
-      plugins.runSequence(task + ':clean', task + ':build', callback);
+      plugins.runSequence(task + ':clean', callback);
     },
     build: function () {
       return gulp.src(sourcePath)

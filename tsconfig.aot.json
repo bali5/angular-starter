@@ -21,11 +21,11 @@
     ]
   },
   "include": [
-    "scripts/**/*.ts"
+    "aotsource/**/*.ts"
   ],
   "exclude": [
     "node_modules",
-    "scripts/main.ts"
+    "aotsource/main.ts"
   ],
   "compileOnSave": false,
   "angularCompilerOptions": {

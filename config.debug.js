@@ -2,6 +2,7 @@ System.config({
   transpiler: 'traceur',
   defaultJSExtensions: true,
   paths: {
+    "root:": "",
     "npm:": "node_modules/",
     "github:*": "jspm_packages/github/*",
     "npm:*": "jspm_packages/npm/*"
@@ -12,23 +13,7 @@ System.config({
       "main": "main.js",
       "defaultExtension": "js"
     },
-    "@angular/material": {
-      "main": "index.js",
-      "defaultExtension": "js"
-    },
     "rxjs": {
-      "defaultExtension": "js"
-    },
-    "moment": {
-      "main": "moment.js",
-      "defaultExtension": "js"
-    },
-    "moment-duration-format": {
-      "main": "lib/moment-duration-format.js",
-      "defaultExtension": "js"
-    },
-    "numericjs": {
-      "main": "numeric-1.2.6.js",
       "defaultExtension": "js"
     },
     "reflect-metadata": {
@@ -45,10 +30,6 @@ System.config({
     },
     "redux": {
       "main": "dist/redux.min.js",
-      "defaultExtension": "js"
-    },
-    "redux-logger": {
-      "main": "dist/index.js",
       "defaultExtension": "js"
     },
     "@angular-redux/store": {
@@ -72,67 +53,64 @@ System.config({
       "defaultExtension": "js"
     },
     "@angular/common": {
-      "main": "index.js",
+      "main": "/bundles/common.umd.js",
       "defaultExtension": "js"
     },
     "@angular/compiler": {
-      "main": "index.js",
+      "main": "/bundles/compiler.umd.js",
       "defaultExtension": "js"
     },
     "@angular/core": {
-      "main": "index.js",
+      "main": "/bundles/core.umd.js",
       "defaultExtension": "js"
     },
     "@angular/forms": {
-      "main": "index.js",
+      "main": "/bundles/forms.umd.js",
       "defaultExtension": "js"
     },
     "@angular/http": {
-      "main": "index.js",
+      "main": "/bundles/http.umd.js",
       "defaultExtension": "js"
     },
     "@angular/platform-browser": {
-      "main": "index.js",
+      "main": "/bundles/platform-browser.umd.js",
       "defaultExtension": "js"
     },
     "@angular/platform-browser-dynamic": {
-      "main": "index.js",
+      "main": "/bundles/platform-browser-dynamic.umd.js",
       "defaultExtension": "js"
     },
     "@angular/router": {
-      "main": "index.js",
+      "main": "/bundles/router.umd.js",
       "defaultExtension": "js"
     },
-    "@angular/router-deprecated": {
-      "main": "index.js",
+    "@angular/material": {
+      "main": "/bundles/material.umd.js",
       "defaultExtension": "js"
     },
-    "@angular/upgrade": {
-      "main": "index.js",
+    "@ng-bootstrap/ng-bootstrap": {
+      "main": "/bundles/ng-bootstrap.js",
+      "defaultExtension": "js"
+    },
+    "moment": {
+      "main": "moment.js",
       "defaultExtension": "js"
     }
   },
 
   map: {
     "@angular": "npm:@angular",
-    "app": "build/scripts",
-    "babel": "npm:babel-core",
-    "babel-runtime": "npm:babel-runtime",
+    "app": "root:scripts",
     "core-js": "npm:core-js",
     "hammerjs": "npm:hammerjs",
     "lodash": "npm:lodash",
-    "moment": "npm:moment",
-    "moment-duration-format": "npm:moment-duration-format",
     "@angular-redux/store": "npm:@angular-redux/store",
-    "numericjs": "npm:numericjs",
-    "plugin-babel": "npm:systemjs-plugin-babel",
-    "plugin-babel-runtime": "npm:babel-runtime",
     "redux": "npm:redux",
-    "redux-logger": "npm:redux-logger",
     "reflect-metadata": "npm:reflect-metadata",
     "rxjs": "npm:rxjs",
-    "systemjs-babel-build": "npm:systemjs-plugin-babel/systemjs-babel-browser.js",
     "traceur": "npm:traceur",
-    "zone.js": "npm:zone.js"
+    "zone.js": "npm:zone.js",
+    "@ng-bootstrap": "npm:@ng-bootstrap",
+    "moment": "npm:moment"
   }
 });

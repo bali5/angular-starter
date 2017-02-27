@@ -1,6 +1,8 @@
 import { NavigationAction, NavigationActions } from './../action/navigation.action';
 import { Navigation } from './../state/navigation';
 
+import * as _ from 'lodash';
+
 export const INITIAL_STATE: Navigation = new Navigation('connect');
 
 export function navigationReducer(state: Navigation = INITIAL_STATE, action: NavigationAction = null) {
@@ -8,12 +10,15 @@ export function navigationReducer(state: Navigation = INITIAL_STATE, action: Nav
 
   switch (action.type) {
     case NavigationActions.NAVIGATION_GO:
+      state = _.cloneDeep(state);
       state.address = action.address;
       break;
     case NavigationActions.NAVIGATION_SESSION:
+      state = _.cloneDeep(state);
       state.session = action.address;
       break;
     case NavigationActions.NAVIGATION_BACK:
+      state = _.cloneDeep(state);
       do {
         state.address = state.history.pop();
       }

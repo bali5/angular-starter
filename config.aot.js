@@ -47,6 +47,10 @@ System.config({
       "main": "dist/redux.min.js",
       "defaultExtension": "js"
     },
+    "redux-logger": {
+      "main": "dist/index.js",
+      "defaultExtension": "js"
+    },
     "@angular-redux/store": {
       "main": "lib/index.js",
       "defaultExtension": "js"
@@ -68,50 +72,52 @@ System.config({
       "defaultExtension": "js"
     },
     "@angular/common": {
-      "main": "/bundles/common.umd.js",
+      "main": "index.js",
       "defaultExtension": "js"
     },
     "@angular/compiler": {
-      "main": "/bundles/compiler.umd.js",
+      "main": "index.js",
       "defaultExtension": "js"
     },
     "@angular/core": {
-      "main": "/bundles/core.umd.js",
+      "main": "index.js",
       "defaultExtension": "js"
     },
     "@angular/forms": {
-      "main": "/bundles/forms.umd.js",
+      "main": "index.js",
       "defaultExtension": "js"
     },
     "@angular/http": {
-      "main": "/bundles/http.umd.js",
+      "main": "index.js",
       "defaultExtension": "js"
     },
     "@angular/platform-browser": {
-      "main": "/bundles/platform-browser.umd.js",
+      "main": "index.js",
       "defaultExtension": "js"
     },
     "@angular/platform-browser-dynamic": {
-      "main": "/bundles/platform-browser-dynamic.umd.js",
+      "main": "index.js",
       "defaultExtension": "js"
     },
     "@angular/router": {
-      "main": "/bundles/router.umd.js",
+      "main": "index.js",
       "defaultExtension": "js"
     },
     "@angular/router-deprecated": {
-      "main": "/bundles/router-deprecated.umd.js",
+      "main": "index.js",
       "defaultExtension": "js"
     },
     "@angular/upgrade": {
-      "main": "/bundles/upgrade.umd.js",
+      "main": "index.js",
       "defaultExtension": "js"
     }
   },
 
   map: {
     "@angular": "npm:@angular",
-    "app": "build/scripts",
+    "app": "build/aotsource",
+    "babel": "npm:babel-core",
+    "babel-runtime": "npm:babel-runtime",
     "core-js": "npm:core-js",
     "hammerjs": "npm:hammerjs",
     "lodash": "npm:lodash",
@@ -122,8 +128,10 @@ System.config({
     "plugin-babel": "npm:systemjs-plugin-babel",
     "plugin-babel-runtime": "npm:babel-runtime",
     "redux": "npm:redux",
+    "redux-logger": "npm:redux-logger",
     "reflect-metadata": "npm:reflect-metadata",
     "rxjs": "npm:rxjs",
+    "systemjs-babel-build": "npm:systemjs-plugin-babel/systemjs-babel-browser.js",
     "traceur": "npm:traceur",
     "zone.js": "npm:zone.js"
   }
