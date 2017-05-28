@@ -1,7 +1,9 @@
 import { NavigationAction, NavigationActions } from './../action/navigation.action';
 import { Navigation } from './../state/navigation';
 
-import _ from 'lodash';
+import lodash from 'lodash';
+
+const _ = lodash || (<any>window)._;
 
 export const INITIAL_STATE: Navigation = new Navigation('connect');
 

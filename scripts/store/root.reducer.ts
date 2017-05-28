@@ -4,7 +4,11 @@ import { IAppState } from './app.state';
 import { NavigationActions } from './action/navigation.action';
 import { navigationReducer } from './reducer/navigation.reducer';
 
-import _ from 'lodash';
+import lodash from 'lodash';
+
+const _ = lodash || (<any>window)._;
+
+console.log(lodash);
 
 export const INITIAL_STATE: IAppState = {
   navigation: _.cloneDeep(navigationReducer()),

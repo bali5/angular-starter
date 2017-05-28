@@ -7,7 +7,9 @@ import { IAppState } from './../store/app.state';
 
 import { INITIAL_STATE, rootReducer } from './../store/root.reducer';
 
-import _ from 'lodash';
+import lodash from 'lodash';
+
+const _ = lodash || (<any>window)._;
 
 @Injectable()
 export class AppContext {

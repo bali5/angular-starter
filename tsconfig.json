@@ -5,13 +5,14 @@
     "removeComments": false,
     "sourceMap": true,
     "target": "es5",
-    "module": "system",
+    "module": "commonjs",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "suppressImplicitAnyIndexErrors": true,
     "outDir": "build/scripts/",
-    "lib" : ["es2015", "es2015.iterable", "dom"]
+    "lib" : ["es2015", "dom"],
+    "allowSyntheticDefaultImports": true
   },
   "include": [
     "scripts/**/*.ts"

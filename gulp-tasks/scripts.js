@@ -29,8 +29,8 @@ module.exports = function (gulp, plugins, task) {
 
   //External libraries needed for aot bundle
   var libsPath = [
-    modulesRoot + 'core-js/client/shim.min.js',
-    modulesRoot + 'zone.js/dist/zone.min.js'
+    modulesRoot + '/core-js/client/shim.min.js',
+    modulesRoot + '/zone.js/dist/zone.min.js'
   ];
 
   return {
@@ -40,7 +40,7 @@ module.exports = function (gulp, plugins, task) {
     },
     //Watch task to build only source files
     'default:watch': function (callback) {
-      plugins.runSequence(task + ':clean', task + ':build', task + ':bundle:code', task + ':bundle:source', callback);
+      plugins.runSequence(task + ':clean', task + ':build', task + ':bundle:source', callback);
     },
     //AOT release build
     release: function (callback) {
@@ -160,6 +160,7 @@ module.exports = function (gulp, plugins, task) {
     // Bundle up the whole app
     'aot:bundle': function () {
       return gulp.src(libsPath.concat(['./build/scripts/app.js']))
+        .pipe(plugins.concat('app.js'))
         .pipe(gulp.dest(destinationPath));
     }
   };
