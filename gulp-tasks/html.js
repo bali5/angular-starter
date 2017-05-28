@@ -1,11 +1,11 @@
 module.exports = function (gulp, plugins, task) {
   let sourceRoot = './html/';
   let sourcePath = [
-    sourceRoot + '**/*.{html,ico}',
+    sourceRoot + '**/*.{html,ico,js,json}',
     '!' + sourceRoot + 'index.debug.html'
   ];
   let sourcePathDebug = [
-    sourceRoot + '**/*.{html,ico}',
+    sourceRoot + '**/*.{html,ico,js,json}',
     '!' + sourceRoot + 'index.html'
   ];
   let destinationPath = './release/';

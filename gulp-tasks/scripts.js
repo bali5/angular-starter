@@ -1,75 +1,90 @@
 var os = require('os');
 var exec = require('child_process').exec;
+var rollup = require('rollup-stream');
+var Builder = require('systemjs-builder');
 
 module.exports = function (gulp, plugins, task) {
-  var Builder = require('systemjs-builder');
-
+  //Root path for script files
   var sourceRoot = './scripts/';
+  //Blob path for script files
   var sourcePath = [
     sourceRoot + '**/*.ts'
   ];
-  var buildPath = './build/scripts/';
-  var buildPathNS = buildPath;
-  var aotPath = './aot/';
-  var aotBuildPath = './build/aotsource/';
-  var aotSourcePath = './aotsource/';
-  var destinationBasePath = './release/';
-  var destinationPath = destinationBasePath + 'scripts/';
-  var destinationBuildPath = destinationBasePath + 'build/scripts/';
 
-  var libsSourceRoot = './node_modules/';
-  var libsSourcePath = [
-    libsSourceRoot + 'core-js/client/shim.min.js',
-    libsSourceRoot + 'zone.js/dist/zone.js',
-    libsSourceRoot + 'systemjs/dist/system.src.js',
-    './config.js'
-  ];
+  //Root for node_modules
+  var modulesRoot = './node_modules';
 
-  var libsSourceRootDebug = './**node_modules/';
-  var libsSourcePathDebug = [
-    libsSourceRootDebug + 'zone.js/**/*.js',
-    libsSourceRootDebug + 'systemjs/**/*.js'
-  ];
+  //Root path for destination
+  var destinationRoot = './release/';
+  //Path for destination
+  var destinationPath = destinationRoot + 'scripts/';
 
+  //Root path for temporary build
+  var buildRoot = destinationRoot + 'build/';
+  //Path for build
+  var buildPath = buildRoot + 'scripts/';
+
+  //TS project for debug build
   var project = plugins.typescript.createProject('./tsconfig.json');
 
   return {
+    //Default task is debug build
     default: function (callback) {
-      plugins.runSequence(task + ':clean', task + ':build', task + ':bundle:packages', task + ':bundle:code', task + ':bundle:source', callback);
+      plugins.runSequence(task + ':clean', task + ':build', task + ':bundle:packages', task + ':bundle:source', callback);
     },
+    //Watch task to build only source files
     'default:watch': function (callback) {
       plugins.runSequence(task + ':clean', task + ':build', task + ':bundle:code', task + ':bundle:source', callback);
     },
+    //AOT release build
     release: function (callback) {
-      plugins.runSequence(task + ':clean', task + ':release:build', task + ':release:bundle', task + ':libs', task + ':concat', task + ':release:license', callback);
+      plugins.runSequence(task + ':clean', task + ':aot:build', task + ':aot:rename', task + ':aot:bundle', task + ':release:license', task + ':aot:libs', callback);
     },
-    'release-aot': function (callback) {
-      plugins.runSequence(task + ':clean', task + ':aot:source', task + ':aot:build', task + ':aot:rename', task + ':aot:bundle', task + ':libs', task + ':aot:concat', task + ':release:license', callback);
+    //Clean task
+    clean: function () {
+      return gulp.src([destinationPath, buildPath])
+        .pipe(plugins.clean({ force: true }));
     },
+    //Watch task
+    watch: function () {
+      return gulp.watch(sourcePath, [task + ':default:watch']);
+    },
+    //Compile TS to JS
     build: function () {
       return project.src()
         .pipe(plugins.sourcemaps.init())
         .pipe(project())
         .pipe(plugins.sourcemaps.write('.', { includeContent: false, sourceRoot: '.' }))
-        .pipe(gulp.dest(destinationBuildPath));
+        .pipe(gulp.dest(buildPath));
     },
-    'release:build': function () {
-      return project.src()
-        .pipe(project())
-        .pipe(plugins.uglify())
-        .pipe(gulp.dest(buildPathNS));
+    //Copy modules to release folder
+    'bundle:packages': function (callback) {
+      require('./../config.js');
+      var list = Object.keys(System.packages)
+        .map(function (m) {
+          return m
+            .replace('file:///', '')
+            .replace('node_modules', '**node_modules')
+            .replace('build', '**build') + '/**/*.js';
+        })
+        .concat([
+          modulesRoot + '**/systemjs/**/*.js',
+          'config.js'
+        ]);
+
+      return gulp.src(list).pipe(gulp.dest(destinationRoot));
     },
-    'aot:source': function () {
-      return gulp.src(sourcePath)
-        .pipe(plugins.modify({
-          fileModifier: function (file, contents) {
-            return contents.replace(/moduleId: module.id,/g, '');
-          }
-        }))
-        .pipe(gulp.dest(aotSourcePath));
+    //Copy JS to destination
+    // 'bundle:code': function (callback) {
+    //   return gulp.src([buildPath + '**/*.js', buildPath + '**/*.js.map']).pipe(gulp.dest(destinationPath));
+    // },
+    //Copy TS to destination
+    'bundle:source': function (callback) {
+      return gulp.src(sourcePath).pipe(gulp.dest(destinationPath));
     },
+
     'aot:build': function (callback) {
-      var cmd = os.platform() === 'win32' ? '"node_modules/.bin/ngc" -p tsconfig.aot.json' : 'node_modules/.bin/ngc -p tsconfig.aot.json';
+      var cmd = os.platform() === 'win32' ? '"node_modules/.bin/ngc" -p tsconfig-aot.json' : 'node_modules/.bin/ngc -p tsconfig-aot.json';
 
       exec(cmd, function (err, stdout, stderr) {
         if (stdout) {
@@ -81,49 +96,44 @@ module.exports = function (gulp, plugins, task) {
         callback(err);
       });
     },
+    // This needed for bundling to work
+    // No idea why import can't find the js files with the extension
     'aot:rename': function () {
-      return gulp.src(aotBuildPath + '/**/*.js')
+      return gulp.src(buildPath + '/**/*.js')
         .pipe(plugins.rename(function (path) {
           path.basename = path.basename.replace('.aot', '');
         }))
-        .pipe(gulp.dest(aotBuildPath))
-        .pipe(gulp.dest(aotBuildPath));
-    },
-    'bundle:packages': function (callback) {
-      require('./../config.js');
-      var list = Object.keys(System.packages)
-        .map(function (m) {
-          return m
-            .replace('file:///', '')
-            .replace('node_modules', '**node_modules')
-            .replace('build', '**build') + '/**/*.js';
-        }
-        )
-        .concat(libsSourcePathDebug)
-        .concat(['config.debug.js']);
-
-      return gulp.src(list).pipe(gulp.dest(destinationBasePath));
-    },
-    'bundle:code': function (callback) {
-      return gulp.src(buildPath.replace('build', '**build') + '/**/*.{js,js.map}').pipe(gulp.dest(destinationBasePath));
-    },
-    'bundle:source': function (callback) {
-      return gulp.src(sourcePath.concat([destinationBuildPath + '/**/*.{js,js.map}'])).pipe(gulp.dest(destinationPath));
+        .pipe(gulp.dest(buildPath))
+        .pipe(plugins.rename({
+          extname: ''
+        }))
+        .pipe(gulp.dest(buildPath));
     },
     'release:bundle': function () {
       var builder = new Builder('', './config.js');
-      return builder.buildStatic('app', buildPath + '/app.js', { minify: true, sourceMaps: false });
+      return builder.buildStatic('app', buildPath + '/main.js', { minify: true, sourceMaps: false });
     },
-    'aot:bundle': function () {
-      var builder = new Builder('', './config.aot.js');
-      return builder.buildStatic('app', aotBuildPath + '/app.js', { minify: false, sourceMaps: false });
+    'aot:bundle': function (callback) {
+      var cmd = os.platform() === 'win32' ? '"node_modules/.bin/rollup" -c rollup-config.js' : 'node_modules/.bin/rollup -p rollup-config.js';
+
+      exec(cmd, function (err, stdout, stderr) {
+        if (stdout) {
+          console.log(stdout);
+        }
+        if (stderr) {
+          console.log(stderr);
+        }
+        callback(err);
+      });
     },
     'release:license': function () {
       return gulp.src(buildPath + '/app.js')
         .pipe(plugins.insert.prepend(`/*
  * For full list of licenses see license.txt
  */
-`))
+`))      //redux hack
+        .pipe(plugins.insert.prepend(`var process = { env: { NODE_ENV: "production" } };
+        `))
         .pipe(gulp.dest(buildPath));
     },
     doc: function (callback) {
@@ -146,22 +156,15 @@ module.exports = function (gulp, plugins, task) {
         .pipe(plugins.sourcemaps.write('.', { includeContent: true }))
         .pipe(gulp.dest(buildPath));
     },
+    'aot:libs': function () {
+      return gulp.src(libsSourcePathAot.concat([buildPath + 'app.js']))
+        .pipe(gulp.dest(destinationPath));
+    },
     concat: function () {
       return gulp.src([buildPath + 'libs.js', buildPath + 'app.js'])
         .pipe(plugins.concat('app.js'))
         .pipe(gulp.dest(destinationPath));
     },
-    'aot:concat': function () {
-      return gulp.src([buildPath + 'libs.js', aotBuildPath + 'app.js'])
-        .pipe(plugins.concat('app.js'))
-        .pipe(gulp.dest(destinationPath));
-    },
-    clean: function () {
-      return gulp.src([destinationPath, buildPath, aotPath, aotSourcePath])
-        .pipe(plugins.clean({ force: true }));
-    },
-    watch: function () {
-      return gulp.watch(sourcePath, [task + ':default:watch']);
-    }
+
   };
 };

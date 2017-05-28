@@ -22,7 +22,7 @@ import { NavigationActions } from './../store/action/navigation.action';
     BrowserModule,
     FormsModule,
     HttpModule,
-    MaterialModule.forRoot(),
+    MaterialModule,
     NgReduxModule
   ],
   declarations: [

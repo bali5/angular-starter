@@ -21,7 +21,7 @@ function initTasks(name) {
 
 var buildTasks = [
   'html',
-  'images',
+  'media',
   'scripts',
   'styles',
   'views'

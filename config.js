@@ -1,6 +1,4 @@
 System.config({
-  transpiler: 'traceur',
-  defaultJSExtensions: true,
   paths: {
     "npm:": "node_modules/",
     "github:*": "jspm_packages/github/*",
@@ -13,7 +11,7 @@ System.config({
       "defaultExtension": "js"
     },
     "@angular/material": {
-      "main": "index.js",
+      "main": "/bundles/material.umd.js",
       "defaultExtension": "js"
     },
     "rxjs": {
@@ -47,8 +45,12 @@ System.config({
       "main": "dist/redux.min.js",
       "defaultExtension": "js"
     },
+    "redux-logger": {
+      "main": "dist/index.js",
+      "defaultExtension": "js"
+    },
     "@angular-redux/store": {
-      "main": "lib/index.js",
+      "main": "lib/src/index.js",
       "defaultExtension": "js"
     },
     "core-js": {
@@ -59,12 +61,12 @@ System.config({
       "main": "dist/zone.min.js",
       "defaultExtension": "js"
     },
-    "traceur": {
-      "main": "dist/src/traceur.js",
+    "@angular/animations": {
+      "main": "/bundles/animations.umd.js",
       "defaultExtension": "js"
     },
-    "babel": {
-      "main": "index.js",
+    "@angular/animations/browser": {
+      "main": "../bundles/animations-browser.umd.js",
       "defaultExtension": "js"
     },
     "@angular/common": {
@@ -89,6 +91,10 @@ System.config({
     },
     "@angular/platform-browser": {
       "main": "/bundles/platform-browser.umd.js",
+      "defaultExtension": "js"
+    },
+    "@angular/platform-browser/animations": {
+      "main": "../bundles/platform-browser-animations.umd.js",
       "defaultExtension": "js"
     },
     "@angular/platform-browser-dynamic": {
@@ -119,12 +125,10 @@ System.config({
     "moment-duration-format": "npm:moment-duration-format",
     "@angular-redux/store": "npm:@angular-redux/store",
     "numericjs": "npm:numericjs",
-    "plugin-babel": "npm:systemjs-plugin-babel",
-    "plugin-babel-runtime": "npm:babel-runtime",
     "redux": "npm:redux",
+    "redux-logger": "npm:redux-logger",
     "reflect-metadata": "npm:reflect-metadata",
     "rxjs": "npm:rxjs",
-    "traceur": "npm:traceur",
     "zone.js": "npm:zone.js"
   }
 });

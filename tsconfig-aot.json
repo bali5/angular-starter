@@ -6,26 +6,20 @@
     "sourceMap": true,
     "target": "es5",
     "module": "es2015",
-    "lib": [
-      "es2015",
-      "dom"
-    ],
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "suppressImplicitAnyIndexErrors": true,
     "outDir": "build/",
-    "types": [
-      "hammerjs",
-      "lodash"
-    ]
+    "lib" : ["es2015", "es2015.iterable", "dom"],
+    "allowSyntheticDefaultImports": true 
   },
   "include": [
-    "aotsource/**/*.ts"
+    "scripts/**/*.ts"
   ],
   "exclude": [
     "node_modules",
-    "aotsource/main.ts"
+    "scripts/main.ts"
   ],
   "compileOnSave": false,
   "angularCompilerOptions": {
