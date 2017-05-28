@@ -41,9 +41,6 @@ gulp.task('default', function (callback) {
 gulp.task('release', function (callback) {
   plugins.runSequence(...buildTasks.map((m) => m + ':release'), callback);
 });
-gulp.task('release-aot', function (callback) {
-  plugins.runSequence(...buildTasks.map((m) => m == 'scripts' ? m + ':release-aot' : m + ':release'), callback);
-});
 gulp.task('build', buildTasks);
 gulp.task('clean', cleanTasks, function () {
   return gulp.src('./release')

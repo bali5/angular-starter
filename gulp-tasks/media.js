@@ -12,9 +12,6 @@ module.exports = function (gulp, plugins, task) {
     release: function (callback) {
       plugins.runSequence(task + ':clean', task + ':build', callback);
     },
-    'release-aot': function (callback) {
-      plugins.runSequence(task + ':clean', task + ':build', callback);
-    },
     build: function () {
       return gulp.src(sourcePath)
         .pipe(gulp.dest(destinationPath));

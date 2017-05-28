@@ -14,9 +14,6 @@ module.exports = function (gulp, plugins, task) {
     release: function (callback) {
       plugins.runSequence(task + ':clean', task + ':icon', task + ':fix', task + ':build', callback);
     },
-    'release-aot': function (callback) {
-      plugins.runSequence(task + ':clean', task + ':icon', task + ':fix', task + ':build', callback);
-    },
     icon:  function () {
       return gulp.src(iconPath + '*.{eot,ijmap,svg,ttf,woff,woff2}')
         .pipe(gulp.dest(destinationPath));
