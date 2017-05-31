@@ -21,7 +21,9 @@ module.exports = function (gulp, plugins, task) {
         .pipe(plugins.clean({force: true}));
     },
     watch: function () {
-      return gulp.watch(sourcePath, [task]);
+      plugins.watch(sourcePath, function () {
+        gulp.start('default');
+      });
     }
   };
 };

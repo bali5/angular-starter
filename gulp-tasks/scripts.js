@@ -53,7 +53,9 @@ module.exports = function (gulp, plugins, task) {
     },
     //Watch task
     watch: function () {
-      return gulp.watch(sourcePath, [task + ':default:watch']);
+      plugins.watch(sourcePath, function () {
+        gulp.start(task + ':default:watch');
+      });
     },
     /* **************************************************
      * DEBUG BUILD
