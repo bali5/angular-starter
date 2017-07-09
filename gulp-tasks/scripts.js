@@ -48,7 +48,7 @@ module.exports = function (gulp, plugins, task) {
     },
     //Clean task
     clean: function () {
-      return gulp.src([destinationPath, buildPath])
+      return gulp.src([destinationPath, buildRoot, './build', './aot', destinationRoot + 'node_modules/'])
         .pipe(plugins.clean({ force: true }));
     },
     //Watch task
