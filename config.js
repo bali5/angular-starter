@@ -14,6 +14,10 @@ System.config({
       "main": "/bundles/material.umd.js",
       "defaultExtension": "js"
     },
+    "@angular/cdk": {
+      "main": "/bundles/cdk.umd.js",
+      "defaultExtension": "js"
+    },
     "rxjs": {
       "defaultExtension": "js"
     },
