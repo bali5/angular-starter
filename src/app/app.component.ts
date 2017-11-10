@@ -6,8 +6,9 @@ import { Observable } from 'rxjs/Observable';
 import { select } from '@angular-redux/store';
 
 @Component({
-  selector: 'cf-app',
-  templateUrl: '../../views/app/app.html',
+  selector: 'cxs-app',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {

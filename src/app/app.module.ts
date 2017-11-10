@@ -6,7 +6,22 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 
-import { MaterialModule, MdIconRegistry, OVERLAY_PROVIDERS, MdSnackBar } from '@angular/material';
+import { 
+  MatIconModule,
+  MatIconRegistry,
+  MatSnackBar,
+  MatMenuModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatOptionModule,
+  MatTableModule,
+  MatSelectModule,
+  MatCardModule,
+  MatExpansionModule,
+  MatCheckboxModule,
+  MatButtonModule,
+  MatToolbarModule
+ } from '@angular/material';
 
 import { NgReduxModule } from '@angular-redux/store';
 
@@ -24,7 +39,18 @@ import { NavigationActions } from './../store/action/navigation.action';
     BrowserModule,
     FormsModule,
     HttpModule,
-    MaterialModule,
+    MatIconModule,
+    MatMenuModule,
+    MatFormFieldModule,
+    MatOptionModule,
+    MatTableModule,
+    MatInputModule,
+    MatSelectModule,
+    MatCardModule,
+    MatExpansionModule,
+    MatCheckboxModule,
+    MatButtonModule,
+    MatToolbarModule,
     NgReduxModule
   ],
   declarations: [
@@ -34,9 +60,8 @@ import { NavigationActions } from './../store/action/navigation.action';
     AppComponent 
   ],
   providers: [
-    MdIconRegistry,
-    OVERLAY_PROVIDERS,
-    MdSnackBar,
+    MatIconRegistry,
+    MatSnackBar,
     AppContext,
     // Store
     NavigationActions

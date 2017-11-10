@@ -10,17 +10,10 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "suppressImplicitAnyIndexErrors": true,
-    "outDir": "build/",
+    "outDir": "../dist",
     "lib" : ["es2015", "dom"],
     "allowSyntheticDefaultImports": true 
   },
-  "include": [
-    "scripts/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "scripts/main.ts"
-  ],
   "compileOnSave": false,
   "angularCompilerOptions": {
     "genDir": "aot",

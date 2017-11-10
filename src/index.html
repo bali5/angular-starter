@@ -5,25 +5,21 @@
 	<base href=".">
 	<meta charset="utf-8">
 	<title>complex-starter</title>
+
 	<link rel="stylesheet" href="styles/styles.min.css" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 	<link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 
 <body>
-	<cf-app>
+	<cxs-app>
 		<div class="loading">
 			<div><i class="material-icons loading-image"> cloud_queue </i></div>
 			<div class="loading-text">Loading...</div>
 		</div>
-	</cf-app>
-	<script>
-		window.onload = function () {
-			var script = document.createElement('script');
-			script.setAttribute('src','scripts/app.js');
-			document.head.appendChild(script);
-		};
-	</script>
+	</cxs-app>
 </body>
 
 </html>

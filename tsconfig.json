@@ -1,25 +1,25 @@
 {
+  "compileOnSave": false,  
   "compilerOptions": {
-    "noImplicitAny": false,
-    "noEmitOnError": true,
-    "removeComments": false,
     "sourceMap": true,
-    "target": "es5",
-    "module": "commonjs",
+    "declaration": false, 
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "outDir": "build/scripts/",
-    "lib" : ["es2015", "dom"],
+    "target": "es5",
+    "typeRoots": [
+      "node_modules/@types"
+    ], 
+    "lib" : [
+      "es2017", 
+      "dom"
+    ], 
     "allowSyntheticDefaultImports": true
   },
   "include": [
-    "scripts/**/*.ts"
+    "src/**/*.ts"
   ],
   "exclude": [
-    "node_modules",
-    "scripts/main.aot.ts"
-  ],
-  "compileOnSave": false
+    "node_modules"
+  ]
 }
